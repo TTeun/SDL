@@ -8,16 +8,14 @@ using namespace std;
 
 int main( int argc, char* args[] )
 {
-
   Window *w = new Window(1000, 800);
 
-  Sprite *s = new Sprite("window/hello_world.bmp", w->screen_surface());
+  Sprite *s = new Sprite("window/hello_world.bmp", w->screen_renderer());
   if (not s->is_success())
     cout << "Erorr\n";
 
   bool running = true;
   SDL_Event e;
-
   if (w->is_success())
     while (running){
 
@@ -30,9 +28,8 @@ int main( int argc, char* args[] )
           }
       }
 
-
       w->clear();
-      s->blit(0, 0, 30, 40);
+      s->blit(100, 100, 50, 50);
       w->render();
     }
 

@@ -6,7 +6,9 @@ Window::Window(size_t width, size_t height)
   : m_width(width), m_height(height)
 {
   init_window();
-  m_screen_surface = SDL_GetWindowSurface(m_window );
+  m_screen_surface = SDL_GetWindowSurface( m_window );
+  m_screen_renderer = SDL_CreateRenderer( m_window, -1, SDL_RENDERER_ACCELERATED );
+  SDL_SetRenderDrawColor( m_screen_renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 }
 
 Window::~Window(){
@@ -30,13 +32,17 @@ void Window::init_window(){
 }
 
 void Window::clear(){
-  SDL_FillRect( m_screen_surface, NULL, SDL_MapRGB( m_screen_surface->format, 0xFF, 0xFF, 0xFF ) );
+  SDL_RenderClear( m_screen_renderer );
 }
 
 void Window::render(){
-  SDL_UpdateWindowSurface( m_window );
+  SDL_RenderPresent( m_screen_renderer );
 }
 
 SDL_Surface * Window::screen_surface(){
   return m_screen_surface;
+}
+
+SDL_Renderer * Window::screen_renderer(){
+  return m_screen_renderer;
 }

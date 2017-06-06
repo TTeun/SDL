@@ -14,6 +14,7 @@ public:
  void render();
 
  SDL_Surface *screen_surface();
+ SDL_Renderer *screen_renderer();
 
 
 private:
@@ -25,6 +26,7 @@ private:
 
   SDL_Window* m_window = nullptr;
   SDL_Surface* m_screen_surface = nullptr;
+  SDL_Renderer* m_screen_renderer = nullptr;
 };
 
 bool inline Window::is_success(){

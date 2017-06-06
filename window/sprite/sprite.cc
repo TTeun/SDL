@@ -1,30 +1,27 @@
 #include "sprite.h"
+#include <SDL2/SDL_image.h>
 #include <iostream>
 
 using namespace std;
 
 Sprite::Sprite(){}
 
-Sprite::Sprite(char const * path, SDL_Surface *screen_surface)
-  : m_screen_surface(screen_surface)
+Sprite::Sprite(char const * path, SDL_Renderer *screen_renderer)
+  : m_screen_renderer(screen_renderer)
 {
-  if (not m_screen_surface){
+  if (not m_screen_renderer){
     cout << "Invalid window\n";
     m_success = false;
   }
+
   SDL_Surface *temp_surface;
-  temp_surface = SDL_LoadBMP( path );
+  temp_surface = IMG_Load( path );
   if( temp_surface == NULL ){
     cout << "Unable to load image %s! SDL Error: " <<  SDL_GetError() << '\n';
     m_success  = false;
   }
 
-  m_surface = SDL_ConvertSurface( temp_surface, m_screen_surface->format, NULL );
-  if( m_surface == NULL )
-  {
-    cout <<  "Unable to optimize image :" << SDL_GetError() << '\n';
-  }
-
+  m_texture = SDL_CreateTextureFromSurface( m_screen_renderer, temp_surface );
   SDL_FreeSurface( temp_surface );
 }
 
@@ -34,9 +31,9 @@ Sprite::~Sprite(){
 
 void Sprite::blit( SDL_Rect *dest_rec )
 {
-  SDL_BlitScaled( m_surface, NULL, m_screen_surface, dest_rec );
+  SDL_RenderCopy(m_screen_renderer, m_texture, NULL, dest_rec);
+  // SDL_BlitScaled( m_surface, NULL, m_screen_surface, dest_rec );
 }
-
 
 void Sprite::blit( int _x, int _y, int _w, int _h )
 {
@@ -45,5 +42,6 @@ void Sprite::blit( int _x, int _y, int _w, int _h )
   dest_rec.y = _y;
   dest_rec.w = _w;
   dest_rec.h = _h;
-  SDL_BlitScaled( m_surface, NULL, m_screen_surface, &dest_rec );
+  SDL_RenderCopy(m_screen_renderer, m_texture, NULL, &dest_rec);
+  // SDL_BlitScaled( m_surface, NULL, m_screen_surface, &dest_rec );
 }
