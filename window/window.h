@@ -13,7 +13,6 @@ public:
  void clear();
  void render();
 
- SDL_Surface *screen_surface();
  SDL_Renderer *screen_renderer();
 
 
@@ -25,7 +24,6 @@ private:
   size_t m_height;
 
   SDL_Window* m_window = nullptr;
-  SDL_Surface* m_screen_surface = nullptr;
   SDL_Renderer* m_screen_renderer = nullptr;
 };
 

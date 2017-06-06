@@ -9,6 +9,7 @@ public:
   Sprite(char const * path, SDL_Renderer *screen_surface);
   ~Sprite();
   void blit( SDL_Rect *dest_rec );
+  void blit( int x, int y );
   void blit( int x, int y, int w, int h );
   bool is_success();
 

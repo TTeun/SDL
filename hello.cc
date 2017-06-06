@@ -10,7 +10,7 @@ int main( int argc, char* args[] )
 {
   Window *w = new Window(1000, 800);
 
-  Sprite *s = new Sprite("window/hello_world.bmp", w->screen_renderer());
+  Sprite *s = new Sprite("assets/environment/rain_drop2.png", w->screen_renderer());
   if (not s->is_success())
     cout << "Erorr\n";
 
@@ -29,10 +29,12 @@ int main( int argc, char* args[] )
       }
 
       w->clear();
-      s->blit(100, 100, 50, 50);
+      s->blit(240, 100);
       w->render();
     }
 
+  delete w;
+  delete s;
 
 	return 0;
 }

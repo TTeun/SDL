@@ -10,7 +10,7 @@ Sprite::Sprite(char const * path, SDL_Renderer *screen_renderer)
   : m_screen_renderer(screen_renderer)
 {
   if (not m_screen_renderer){
-    cout << "Invalid window\n";
+    cout << "Invalid renderer passed to sprite cnstr.\n";
     m_success = false;
   }
 
@@ -22,6 +22,11 @@ Sprite::Sprite(char const * path, SDL_Renderer *screen_renderer)
   }
 
   m_texture = SDL_CreateTextureFromSurface( m_screen_renderer, temp_surface );
+  if (not m_texture){
+    cout << "Unable to convert to texture %s! SDL Error: " <<  SDL_GetError() << '\n';
+    m_success = false;
+  }
+
   SDL_FreeSurface( temp_surface );
 }
 
@@ -32,7 +37,18 @@ Sprite::~Sprite(){
 void Sprite::blit( SDL_Rect *dest_rec )
 {
   SDL_RenderCopy(m_screen_renderer, m_texture, NULL, dest_rec);
-  // SDL_BlitScaled( m_surface, NULL, m_screen_surface, dest_rec );
+}
+
+void Sprite::blit( int _x, int _y )
+{
+  int _w, _h;
+  SDL_QueryTexture(m_texture, NULL, NULL, &_w, &_h);
+  SDL_Rect dest_rec;
+  dest_rec.x = _x;
+  dest_rec.y = _y;
+  dest_rec.w = _w;
+  dest_rec.h = _h;
+  SDL_RenderCopy(m_screen_renderer, m_texture, NULL, &dest_rec);
 }
 
 void Sprite::blit( int _x, int _y, int _w, int _h )
@@ -43,5 +59,4 @@ void Sprite::blit( int _x, int _y, int _w, int _h )
   dest_rec.w = _w;
   dest_rec.h = _h;
   SDL_RenderCopy(m_screen_renderer, m_texture, NULL, &dest_rec);
-  // SDL_BlitScaled( m_surface, NULL, m_screen_surface, &dest_rec );
 }
