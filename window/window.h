@@ -14,7 +14,7 @@ public:
  void render();
 
  SDL_Renderer *screen_renderer();
-
+ SDL_Window *window();
 
 private:
   void init_window();

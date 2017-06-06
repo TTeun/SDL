@@ -1,18 +1,21 @@
 #include <iostream>
+#include "essential/essential.h"
 #include "window/window.h"
 #include "window/sprite/sprite.h"
+#include "window/environment/rain/rain.h"
+#include <SDL2/SDL.h>
+
+int Essential::m_width = 1000;
+int Essential::m_height = 800;
+int Essential::m_fps = 60;
 
 using namespace std;
 
-#include <SDL2/SDL.h>
 
 int main( int argc, char* args[] )
 {
-  Window *w = new Window(1000, 800);
-
-  Sprite *s = new Sprite("assets/environment/rain_drop2.png", w->screen_renderer());
-  if (not s->is_success())
-    cout << "Erorr\n";
+  Window *w = new Window(Essential::width(), Essential::height());
+  Rain *rain = new Rain( w->screen_renderer());
 
   bool running = true;
   SDL_Event e;
@@ -28,13 +31,18 @@ int main( int argc, char* args[] )
           }
       }
 
+      int width, height;
+      SDL_GetWindowSize(w->window(), &width, &height);
+      Essential::set_width(width);
+      Essential::set_height(height);
+
+
       w->clear();
-      s->blit(240, 100);
+      rain->render_rain();
       w->render();
     }
 
   delete w;
-  delete s;
 
 	return 0;
 }

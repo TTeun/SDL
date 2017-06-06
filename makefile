@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = hello.cc window/window.cc window/sprite/sprite.cc
+OBJS = hello.cc window/window.cc window/sprite/sprite.cc window/environment/rain/rain.cc
 
 #CC specifies which compiler we're using
 CC = g++
@@ -9,7 +9,7 @@ CC = g++
 COMPILER_FLAGS = -w -std=c++14 -Wall
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -L/SDL2 -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lSDL2 -lSDL2_image
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = hello

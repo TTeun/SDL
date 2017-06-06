@@ -47,3 +47,7 @@ void Window::render(){
 SDL_Renderer * Window::screen_renderer(){
   return m_screen_renderer;
 }
+
+SDL_Window * Window::window(){
+  return m_window;
+}
