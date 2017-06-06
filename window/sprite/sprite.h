@@ -6,14 +6,17 @@
 class Sprite {
 public:
   Sprite();
-  Sprite(char const * path);
+  Sprite(char const * path, SDL_Surface *screen_surface);
   ~Sprite();
-  void blit( SDL_Surface *dest, SDL_Rect *dest_rec );
+  void blit( SDL_Rect *dest_rec );
+  void blit( int x, int y, int w, int h );
   bool is_success();
 
 private:
-  SDL_Surface* m_surface = nullptr;
   bool m_success = true;
+
+  SDL_Surface* m_surface = nullptr;
+  SDL_Surface* m_screen_surface = nullptr;
 };
 
 bool inline Sprite::is_success(){

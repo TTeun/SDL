@@ -13,7 +13,7 @@ public:
  void clear();
  void render();
 
- SDL_Surface *screenSurface();
+ SDL_Surface *screen_surface();
 
 
 private:
@@ -24,7 +24,7 @@ private:
   size_t m_height;
 
   SDL_Window* m_window = nullptr;
-  SDL_Surface* m_screenSurface = nullptr;
+  SDL_Surface* m_screen_surface = nullptr;
 };
 
 bool inline Window::is_success(){
