@@ -16,10 +16,9 @@ public:
 private:
   bool m_success = true;
 
-  SDL_Surface* m_surface = nullptr;
-  SDL_Renderer* m_screen_renderer = nullptr;
-
+  SDL_Rect dest_rec;
   SDL_Texture* m_texture = nullptr;
+  SDL_Renderer* m_screen_renderer = nullptr;
 };
 
 bool inline Sprite::is_success(){

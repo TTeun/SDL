@@ -28,10 +28,14 @@ Sprite::Sprite(char const * path, SDL_Renderer *screen_renderer)
   }
 
   SDL_FreeSurface( temp_surface );
+  int _w, _h;
+  SDL_QueryTexture(m_texture, NULL, NULL, &_w, &_h);
+  dest_rec.w = _w;
+  dest_rec.h = _h;
 }
 
 Sprite::~Sprite(){
-  SDL_FreeSurface( m_surface );
+  SDL_DestroyTexture( m_texture );
 }
 
 void Sprite::blit( SDL_Rect *dest_rec )
@@ -41,13 +45,8 @@ void Sprite::blit( SDL_Rect *dest_rec )
 
 void Sprite::blit( int _x, int _y )
 {
-  int _w, _h;
-  SDL_QueryTexture(m_texture, NULL, NULL, &_w, &_h);
-  SDL_Rect dest_rec;
   dest_rec.x = _x;
   dest_rec.y = _y;
-  dest_rec.w = _w;
-  dest_rec.h = _h;
   SDL_RenderCopy(m_screen_renderer, m_texture, NULL, &dest_rec);
 }
 
