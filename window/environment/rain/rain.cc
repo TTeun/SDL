@@ -14,9 +14,12 @@ Uint32 fall(Uint32 interval, void *param){
     }
 
     info.y += info.vy / Essential::fps();
-    if (info.y > Essential::height())
+    if (info.y > Essential::height() - 20){
+      t_rain->add_hit(info.x - 8, info.y);
       info.reset();
+    }
   }
+
   cout << SDL_GetTicks() - t_rain->prev_tick << '\n';
   t_rain->prev_tick = SDL_GetTicks();
   t_rain->needs_timer = true;
@@ -24,12 +27,15 @@ Uint32 fall(Uint32 interval, void *param){
 
 Rain::Rain(SDL_Renderer* screen_renderer)
   : m_screen_renderer(screen_renderer),
-    m_rain_drop(new Sprite("assets/environment/rain_drop.png",screen_renderer))
+    m_rain_drop(new Sprite("assets/environment/rain_drop.png",screen_renderer)),
+    m_rain_hit(new Sprite("assets/environment/rain_hit.png",screen_renderer))
 {
   srand ( time(NULL) );
   m_drops.reserve(num_drops);
   for (size_t i = 0; i < num_drops; ++i)
     m_drops.push_back(drop_info());
+
+  cout << "Rain started\n";
 }
 
 void Rain::render_rain(){
@@ -38,6 +44,20 @@ void Rain::render_rain(){
     needs_timer = false;
   }
 
+  while (m_animations.size() > 0 && m_animations[0]->is_done()){
+    delete m_animations[0];
+    m_animations.pop_front();
+  }
+
+  for (auto & anim : m_animations){
+    anim->update();
+    anim->render_anim();
+  }
+
   for (auto & info : m_drops)
     m_rain_drop->blit(info.x, info.y);
+}
+
+void Rain::add_hit(Uint32 x, Uint32 y){
+  m_animations.push_back(new Animation("assets/environment/rain_hit.png", m_screen_renderer, 3, x, y, m_rain_hit));
 }

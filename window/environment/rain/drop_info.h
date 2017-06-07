@@ -1,6 +1,8 @@
 #ifndef __DROP_INFO__H
 #define __DROP_INFO__H
 
+
+// Holds position and velocity of rain drop
 struct drop_info {
   drop_info(){
     x = rand() % (Essential::width() + Essential::height());

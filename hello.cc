@@ -4,6 +4,7 @@
 #include "window/sprite/sprite.h"
 #include "window/environment/rain/rain.h"
 #include "window/player/player.h"
+#include "window/animation/animation.h"
 #include <SDL2/SDL.h>
 
 int Essential::m_width = 1000;
@@ -15,9 +16,10 @@ using namespace std;
 int main( int argc, char* args[] )
 {
 
-  Window *w = new Window(Essential::width(), Essential::height());
+  Window *w = new Window( Essential::width(), Essential::height() );
   Rain *rain = new Rain( w->screen_renderer() );
   Player *player = new Player( w->screen_renderer() );
+
 
   int width, height;
   bool running = true;
@@ -55,8 +57,8 @@ int main( int argc, char* args[] )
       Essential::set_height(height);
 
       w->clear();
-      player->render_player();
       rain->render_rain();
+      player->render_player();
       w->render();
     }
 
