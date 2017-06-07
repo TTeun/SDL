@@ -33,11 +33,11 @@ Animation::Animation(char const * path, SDL_Renderer *screen_renderer, Uint32 nu
 }
 
 void Animation::update(){
-  if (m_last_tick + ms_per_frame > SDL_GetTicks())
+  if (m_is_done || m_last_tick + ms_per_frame > SDL_GetTicks())
     return;
 
   if (m_current_frame + 1 >= m_num_frames){
-    ++m_current_frame;
+    m_is_done = true;
     return;
   }
 
@@ -54,5 +54,5 @@ void Animation::render_anim(){
 }
 
 bool Animation::is_done(){
-  return m_current_frame >= m_num_frames;
+  return m_is_done;
 }

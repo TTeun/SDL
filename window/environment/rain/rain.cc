@@ -14,13 +14,13 @@ Uint32 fall(Uint32 interval, void *param){
     }
 
     info.y += info.vy / Essential::fps();
-    if (info.y > Essential::height() - 20){
+    if (info.y < Essential::camera_y() - 30){
       t_rain->add_hit(info.x - 8, info.y);
       info.reset();
     }
   }
 
-  cout << SDL_GetTicks() - t_rain->prev_tick << '\n';
+  // cout << SDL_GetTicks() - t_rain->prev_tick << '\n';
   t_rain->prev_tick = SDL_GetTicks();
   t_rain->needs_timer = true;
 }
@@ -53,9 +53,10 @@ void Rain::render_rain(){
     anim->update();
     anim->render_anim();
   }
-
+  int cam_x = Essential::camera_x();
+  int cam_y = Essential::camera_y();
   for (auto & info : m_drops)
-    m_rain_drop->blit(info.x, info.y);
+    m_rain_drop->blit(info.x - cam_x, Essential::screen_height() - info.y + cam_y);
 }
 
 void Rain::add_hit(Uint32 x, Uint32 y){

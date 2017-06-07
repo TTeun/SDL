@@ -16,7 +16,7 @@ public:
   void render_rain();
 
 private:
-  size_t num_drops = 100;
+  size_t num_drops = 140;
   Sprite *m_rain_drop = nullptr;
   Sprite *m_rain_hit = nullptr;
 

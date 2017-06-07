@@ -7,8 +7,8 @@ Player::Player(SDL_Renderer* screen_renderer)
 {
   des_rect->x = 0;
   des_rect->y = 0;
-  des_rect->w = 128;
-  des_rect->h = 128;
+  des_rect->w = 32;
+  des_rect->h = 32;
 }
 
 void Player::render_player(){
