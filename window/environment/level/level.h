@@ -11,6 +11,7 @@ public:
   Level(SDL_Renderer *screen_renderer);
 
   void render_level();
+  bool does_hit(int x, int y);
 
 private:
   Sprite *m_level_sprite = nullptr;

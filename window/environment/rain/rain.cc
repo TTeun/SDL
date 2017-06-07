@@ -5,19 +5,31 @@ using namespace std;
 
 Uint32 fall(Uint32 interval, void *param){
   Rain *t_rain = static_cast<Rain *>(param);
-  for (auto & info : t_rain->m_drops){
-    info.x += info.vx / Essential::fps();
 
-    if (info.x < 0){
+  int cam_x = Essential::camera_x();
+  int cam_y = Essential::camera_y();
+
+  for (auto & info : t_rain->m_drops){
+
+    if (Essential::collision()->level_collide(info.x, info.y))
+    {
+      t_rain->add_hit(info.x - cam_x, Essential::screen_height() - info.y + cam_y - 32);
+      info.reset();
+    }
+
+
+    info.x += info.vx / Essential::fps();
+    info.y += info.vy / Essential::fps();
+
+    if (info.x < Essential::camera_x() - 30){
       info.reset();
       continue;
     }
 
-    info.y += info.vy / Essential::fps();
-    if (info.y < Essential::camera_y() - 30){
-      t_rain->add_hit(info.x - 8, info.y);
+
+    if (info.y < Essential::camera_y() - 30)
       info.reset();
-    }
+
   }
 
   // cout << SDL_GetTicks() - t_rain->prev_tick << '\n';

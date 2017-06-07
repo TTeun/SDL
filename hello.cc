@@ -6,6 +6,7 @@
 #include "window/environment/level/level.h"
 #include "window/player/player.h"
 #include "window/animation/animation.h"
+#include "physics/collision/collision.h"
 #include <SDL2/SDL.h>
 
 int Essential::m_screen_width = 1000;
@@ -13,16 +14,19 @@ int Essential::m_screen_height = 800;
 int Essential::m_camera_x = 0;
 int Essential::m_camera_y = 0;
 int Essential::m_fps = 60;
+Collision *Essential::m_collision;
 
 using namespace std;
 
 int main( int argc, char* args[] )
 {
-
   Window *w = new Window( Essential::screen_width(), Essential::screen_height() );
+  Level *level = new Level( w->screen_renderer() );
   Rain *rain = new Rain( w->screen_renderer() );
   Player *player = new Player( w->screen_renderer() );
-  Level *level = new Level( w->screen_renderer() );
+
+  Collision *col = new Collision(level);
+  Essential::set_collision(col);
 
   int width, height;
   bool running = true;

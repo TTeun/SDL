@@ -15,10 +15,10 @@ struct drop_info {
     vy = -( rand() % 40 + 700 );
     vx = rand() % 4 - 400;
   }
-  float x;
-  float y;
-  float vy;
-  float vx;
+  int x;
+  int y;
+  int vy;
+  int vx;
 };
 
 #endif

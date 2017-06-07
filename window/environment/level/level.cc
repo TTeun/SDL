@@ -39,3 +39,17 @@ void Level::render_level(){
 
   }
 }
+
+bool Level::does_hit(int x, int y){
+  // Convert to block coordinates
+  y /= 32;
+  x /= 32;
+  for (auto & row : m_level_desc[y])
+  {
+    if ( (row.first <= x) && (row.first + row.second > x) )
+      return true;
+    if (row.first < x)
+      break;
+  }
+  return false;
+}
