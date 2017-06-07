@@ -13,7 +13,7 @@ Uint32 fall(Uint32 interval, void *param){
 
     if (Essential::collision()->level_collide(info.x, info.y))
     {
-      t_rain->add_hit(info.x - cam_x, Essential::screen_height() - info.y + cam_y - 32);
+      t_rain->add_hit( Essential::to_screen_x( info.x), Essential::to_screen_y(info.y + 32));
       info.reset();
     }
 
@@ -68,7 +68,7 @@ void Rain::render_rain(){
   int cam_x = Essential::camera_x();
   int cam_y = Essential::camera_y();
   for (auto & info : m_drops)
-    m_rain_drop->blit(info.x - cam_x, Essential::screen_height() - info.y + cam_y);
+    m_rain_drop->blit(Essential::to_screen_x(info.x), Essential::to_screen_y(info.y));
 }
 
 void Rain::add_hit(Uint32 x, Uint32 y){

@@ -15,7 +15,7 @@ Level::Level(SDL_Renderer *screen_renderer)
     m_level_desc.push_back(vector<pair<size_t, size_t> >());
 
 
-  m_level_desc.push_back(vector<pair<size_t, size_t> >(1,pair<size_t, size_t>(0UL,1UL)));
+  m_level_desc.push_back(vector<pair<size_t, size_t> >{pair<size_t, size_t>(0UL,1UL), pair<size_t, size_t>(9UL,4UL)});
 
   for (size_t i = 0; i < 20; ++i)
     m_level_desc.push_back(vector<pair<size_t, size_t> >());
@@ -28,12 +28,12 @@ void Level::render_level(){
   size_t y_offset = Essential::screen_height() + Essential::camera_y();
   for (auto it = m_level_desc.begin(); it != m_level_desc.end(); ++it)
   {
-    h = y_offset - 32 * (it - m_level_desc.begin() + 1);
+    h = 32 * (it - m_level_desc.begin() + 1);
     for (auto & col : *it )
     {
       // if col.first > RHS continue
       for (size_t cc = col.first; cc != col.first + col.second; ++cc)
-        m_level_sprite->blit(32 * cc, h);
+        m_level_sprite->blit(Essential::to_screen_x( 32 * cc), Essential::to_screen_y(h));
 
     }
 
@@ -48,7 +48,7 @@ bool Level::does_hit(int x, int y){
   {
     if ( (row.first <= x) && (row.first + row.second > x) )
       return true;
-    if (row.first < x)
+    if (row.first > x)
       break;
   }
   return false;

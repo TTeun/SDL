@@ -1,4 +1,5 @@
 #include "sprite.h"
+#include "../../essential/essential.h"
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
@@ -40,6 +41,8 @@ Sprite::~Sprite(){
 
 void Sprite::blit( SDL_Rect *dest_rec, SDL_Rect *src_rect )
 {
+  if (dest_rec->x < 0 || dest_rec->x > 100000UL)
+    return;
   SDL_RenderCopy(m_screen_renderer, m_texture, src_rect, dest_rec);
 }
 

@@ -7,8 +7,8 @@ Player::Player(SDL_Renderer* screen_renderer)
 {
   des_rect->x = 0;
   des_rect->y = 0;
-  des_rect->w = 32;
-  des_rect->h = 32;
+  des_rect->w = 64;
+  des_rect->h = 64;
 }
 
 void Player::render_player(){
@@ -30,5 +30,22 @@ void Player::render_player(){
     src_rect->w = 32;
     src_rect->h = 32;
   }
+  des_rect->x = x;
+  des_rect->y = Essential::to_screen_y(y + 64);
   m_sprite->blit(des_rect, src_rect);
+}
+
+void Player::update(){
+  if (Essential::collision()->level_collide(x, y + vy)){
+    m_state = STATE::GROUNDED;
+    vy = 0;
+    y /= 16;
+    y *= 16;
+  }
+  if (m_state == STATE::FALLING)
+    vy -= .3f / Essential::fps();
+
+
+  x += vx;
+  y += vy;
 }

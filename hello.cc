@@ -45,9 +45,16 @@ int main( int argc, char* args[] )
             switch( e.key.keysym.sym ){
               case SDLK_LEFT:
                 player->set_dir(Player::DIRECTION::LEFT);
+                --player->vx;
                 break;
               case SDLK_RIGHT:
                 player->set_dir(Player::DIRECTION::RIGHT);
+                ++player->vx;
+                break;
+              case SDLK_UP:
+                player->set_dir(Player::DIRECTION::STAT);
+                player->vy = 1.0f;
+                player->m_state = Player::STATE::FALLING;
                 break;
               default:
                 break;
@@ -58,6 +65,8 @@ int main( int argc, char* args[] )
             break;
           }
       }
+
+      player->update();
 
       SDL_GetWindowSize(w->window(), &width, &height);
       Essential::set_screen_width(width);

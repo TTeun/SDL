@@ -19,53 +19,59 @@ private:
 
 
 public:
-  static int level_width(){
+  static inline int level_width(){
     return m_level_width;
   }
-  static void set_level_width(int var){
+  static inline void set_level_width(int var){
     m_level_width = var;
   }
-  static int level_height(){
+  static inline int level_height(){
     return m_level_height;
   }
-  static void set_level_height(int var){
+  static inline void set_level_height(int var){
     m_screen_height = var;
   }
-  static int screen_width(){
+  static inline int screen_width(){
     return m_screen_width;
   }
-  static void set_screen_width(int var){
+  static inline void set_screen_width(int var){
     m_screen_width = var;
   }
-  static int screen_height(){
+  static inline int screen_height(){
     return m_screen_height;
   }
-  static void set_screen_height(int var){
+  static inline void set_screen_height(int var){
     m_screen_height = var;
   }
-  static int camera_x(){
+  static inline int camera_x(){
     return m_camera_x;
   }
-  static void set_camera_x(int var){
+  static inline void set_camera_x(int var){
     m_camera_x = var;
   }
-  static int camera_y(){
+  static inline int camera_y(){
     return m_camera_y;
   }
-  static void set_camera_y(int var){
+  static inline void set_camera_y(int var){
     m_camera_y = var;
   }
-  static int fps(){
+  static inline int fps(){
     return m_fps;
   }
-  static void set_fps(int var){
+  static inline void set_fps(int var){
     m_fps = var;
   }
-  static Collision *collision(){
+  static inline Collision *collision(){
     return m_collision;
   }
-  static void set_collision(Collision *var){
+  static inline void set_collision(Collision *var){
     m_collision = var;
+  }
+  static inline int to_screen_y(int y){
+    return screen_height() - y + camera_y();
+  }
+  static inline int to_screen_x(int x){
+    return x - camera_x();
   }
 
 };
