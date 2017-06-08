@@ -17,7 +17,7 @@ Level::Level(SDL_Renderer *screen_renderer)
 
   m_level_desc.push_back(vector<pair<size_t, size_t> >{pair<size_t, size_t>(0UL,7UL), pair<size_t, size_t>(12UL,4UL)});
 
-  for (size_t i = 0; i < 20; ++i)
+  for (size_t i = 0; i < 60; ++i)
     m_level_desc.push_back(vector<pair<size_t, size_t> >());
 
 

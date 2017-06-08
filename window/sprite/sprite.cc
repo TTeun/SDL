@@ -41,30 +41,24 @@ Sprite::~Sprite(){
 
 void Sprite::blit( SDL_Rect *dest_rec, SDL_Rect *src_rect )
 {
-  if (dest_rec->x < 0 || dest_rec->x > 100000UL)
-    return;
+  // if (  dest_rec->x > 100000UL || dest_rec->y < -1024 || dest_rec->y > 100000UL)
+  //   return;
   SDL_RenderCopy(m_screen_renderer, m_texture, src_rect, dest_rec);
 }
 
 void Sprite::blit( int _x, int _y, SDL_Rect *src_rect )
 {
-  if (_x < 0 || _x > 100000UL)
-    return;
-
   dest_rec.x = _x;
   dest_rec.y = _y;
-  SDL_RenderCopy(m_screen_renderer, m_texture, NULL, &dest_rec);
+  blit(&dest_rec, nullptr);
 }
 
 void Sprite::blit( int _x, int _y, int _w, int _h )
 {
-  if (_x < 0 || _x > 100000UL)
-    return;
-
   SDL_Rect dest_rec;
   dest_rec.x = _x;
   dest_rec.y = _y;
   dest_rec.w = _w;
   dest_rec.h = _h;
-  SDL_RenderCopy(m_screen_renderer, m_texture, NULL, &dest_rec);
+  blit(&dest_rec, nullptr);
 }

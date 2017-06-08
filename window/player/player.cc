@@ -34,7 +34,7 @@ void Player::render_player(){
     src_rect->w = 32;
     src_rect->h = 32;
   }
-  des_rect->x = x;
+  des_rect->x = Essential::to_screen_x(x);
   des_rect->y = Essential::to_screen_y(y + 64);
   m_sprite->blit(des_rect, src_rect);
 }
@@ -42,21 +42,21 @@ void Player::render_player(){
 void Player::update(){
   if (m_state == STATE::FALLING)
   {
-    if (Essential::collision()->level_collide(x, y + vy)){
+    if (Essential::collision()->level_collide(x, y + vy / Essential::fps())){
       m_state = STATE::GROUNDED;
       vy = 0;
       y /= 16;
       y *= 16;
     } else {
-      vy -= .3f / Essential::fps();
+      vy -= 7.0f / Essential::fps();
     }
   }
   if (m_state == STATE::GROUNDED && (Essential::collision()->no_ground_underneath(x, y))){
     m_state = STATE::FALLING;
   }
 
-  x += vx;
-  y += vy;
+  x += vx / Essential::fps();
+  y += vy / Essential::fps();
 
   cout << "x :" << x << ", y: " << y << '\n';
 }

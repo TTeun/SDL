@@ -11,6 +11,8 @@
 
 int Essential::m_screen_width = 1000;
 int Essential::m_screen_height = 800;
+int Essential::m_level_width = 1000;
+int Essential::m_level_height = 800;
 int Essential::m_camera_x = 0;
 int Essential::m_camera_y = 0;
 int Essential::m_fps = 60;
@@ -45,17 +47,18 @@ int main( int argc, char* args[] )
             switch( e.key.keysym.sym ){
               case SDLK_LEFT:
                 player->set_dir(Player::DIRECTION::LEFT);
-                player->vx -= 0.3;
+                player->vx -= 30.0f;
                 break;
               case SDLK_RIGHT:
                 player->set_dir(Player::DIRECTION::RIGHT);
-                player->vx += 0.3;
+                player->vx += 30.0f;
                 break;
               case SDLK_UP:
                 if (player->m_state == Player::STATE::FALLING)
                   break;
+
                 player->set_dir(Player::DIRECTION::STAT);
-                player->vy = 1.9f;
+                player->vy = 40.0f;
                 player->m_state = Player::STATE::FALLING;
                 break;
               default:
@@ -68,9 +71,6 @@ int main( int argc, char* args[] )
           }
       }
 
-      SDL_GetWindowSize(w->window(), &width, &height);
-      Essential::set_screen_width(width);
-      Essential::set_screen_height(height);
 
       w->clear();
       player->update();
@@ -78,6 +78,13 @@ int main( int argc, char* args[] )
       level->render_level();
       player->render_player();
       w->render();
+
+
+      SDL_GetWindowSize(w->window(), &width, &height);
+      Essential::set_screen_width(width);
+      Essential::set_screen_height(height);
+      Essential::set_level_height(height);
+      Essential::update_camera(player->x, player->y);
     }
 
   delete w;

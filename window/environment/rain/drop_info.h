@@ -11,7 +11,7 @@ struct drop_info {
   }
   void reset(){
     x = rand() % (Essential::screen_width() + Essential::screen_height());
-    y = Essential::screen_height() + 40;
+    y = Essential::level_height();
     vy = -( rand() % 40 + 700 );
     vx = rand() % 4 - 400;
   }

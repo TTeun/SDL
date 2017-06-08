@@ -2,6 +2,7 @@
 #define __ESSENTIAL__H
 
 #include "../physics/collision/collision.h"
+#include "../physics/math.h"
 
 class Essential{
 public:
@@ -29,7 +30,7 @@ public:
     return m_level_height;
   }
   static inline void set_level_height(int var){
-    m_screen_height = var;
+    m_level_height = var;
   }
   static inline int screen_width(){
     return m_screen_width;
@@ -72,6 +73,10 @@ public:
   }
   static inline int to_screen_x(int x){
     return x - camera_x();
+  }
+  static inline void update_camera(int x, int y){
+    m_camera_x = Math::max<int>(x - m_screen_width / 2, 0);
+    m_camera_y = Math::max(y - m_screen_height / 2, 0);
   }
 
 };

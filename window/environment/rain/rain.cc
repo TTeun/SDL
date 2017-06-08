@@ -6,10 +6,8 @@ using namespace std;
 Uint32 fall(Uint32 interval, void *param){
   Rain *t_rain = static_cast<Rain *>(param);
 
-  int cam_x = Essential::camera_x();
-  int cam_y = Essential::camera_y();
-
-  for (auto & info : t_rain->m_drops){
+  for (auto & info : t_rain->m_drops)
+  {
 
     if (Essential::collision()->level_collide(info.x, info.y) || Essential::collision()->player_collide(info.x, info.y))
     {
@@ -20,13 +18,12 @@ Uint32 fall(Uint32 interval, void *param){
     info.x += info.vx / Essential::fps();
     info.y += info.vy / Essential::fps();
 
-    if (info.x < Essential::camera_x() - 30){
+    if (info.x <= 0){
       info.reset();
       continue;
     }
 
-
-    if (info.y < Essential::camera_y() - 30)
+    if (info.y <= 0)
       info.reset();
 
   }
@@ -64,8 +61,6 @@ void Rain::render_rain(){
     anim->update();
     anim->render_anim();
   }
-  int cam_x = Essential::camera_x();
-  int cam_y = Essential::camera_y();
   for (auto & info : m_drops)
     m_rain_drop->blit(Essential::to_screen_x(info.x), Essential::to_screen_y(info.y));
 }
