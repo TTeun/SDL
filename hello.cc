@@ -24,11 +24,14 @@ int main( int argc, char* args[] )
 {
   Window *w = new Window( Essential::screen_width(), Essential::screen_height() );
   Level *level = new Level( w->screen_renderer() );
-  Rain *rain = new Rain( w->screen_renderer() );
   Player *player = new Player( w->screen_renderer() );
-
   Collision *col = new Collision(level, player);
   Essential::set_collision(col);
+  Essential::set_level_height(32 * level->level_height());
+  Essential::set_level_width(32 * level->level_width());
+
+  Rain *rain = new Rain( w->screen_renderer() );
+
 
   int width, height;
   bool running = true;
@@ -80,7 +83,6 @@ int main( int argc, char* args[] )
       SDL_GetWindowSize(w->window(), &width, &height);
       Essential::set_screen_width(width);
       Essential::set_screen_height(height);
-      Essential::set_level_height(height);
       Essential::update_camera(player->x, player->y);
     }
 

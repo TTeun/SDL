@@ -9,22 +9,25 @@ Uint32 fall(Uint32 interval, void *param){
   for (auto & info : t_rain->m_drops)
   {
 
-    if (Essential::collision()->level_collide(info.x, info.y)  || Essential::collision()->player_collide(info.x, info.y) )
-    {
-      t_rain->add_hit( info.x, info.y + 20);
-      info.reset();
-    }
-
-    info.x += info.vx / Essential::fps();
-    info.y += info.vy / Essential::fps();
-
     if (info.x <= 0){
       info.reset();
       continue;
     }
 
-    if (info.y <= 0)
+    if (info.y <= 0){
       info.reset();
+      continue;
+    }
+
+    if (Essential::collision()->level_collide(info.x, info.y)  || Essential::collision()->player_collide(info.x, info.y) )
+    {
+      // cout << "Rain collision\n";
+      t_rain->add_hit( info.x, info.y + 20);
+      info.reset();
+      continue;
+    }
+    info.x += info.vx / Essential::fps();
+    info.y += info.vy / Essential::fps();
 
   }
 
@@ -66,5 +69,5 @@ void Rain::render_rain(){
 }
 
 void Rain::add_hit(Uint32 x, Uint32 y){
-  m_animations.push_back(new Animation("assets/environment/rain_hit.png", m_screen_renderer, 3, x, y, m_rain_hit));
+  m_animations.push_back(new Animation(3, x, y, m_rain_hit));
 }

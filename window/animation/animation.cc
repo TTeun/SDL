@@ -8,7 +8,7 @@ Animation::Animation(){
   cout << "empty animation constructor\n";
 }
 
-Animation::Animation(char const * path, SDL_Renderer *screen_renderer, Uint32 num_frames, int _x, int _y, Sprite *sprite)
+Animation::Animation(Uint32 num_frames, int _x, int _y, Sprite *sprite)
 : m_sprite(sprite)
 {
 
@@ -51,9 +51,14 @@ void Animation::render_anim(){
   if (m_current_frame >= m_num_frames)
     return;
 
-  SDL_Rect temp = des_rect;
-  temp.y = Essential::to_screen_y(temp.y);
-  temp.x = Essential::to_screen_x(temp.x);
+  SDL_Rect temp;
+  temp.w = des_rect.w;
+  temp.h = des_rect.h;
+  temp.y = Essential::to_screen_y(des_rect.y);
+  temp.x = Essential::to_screen_x(des_rect.x);
+  // if (temp.y < 0 || temp.x < 0)
+  //   return;
+  //
   m_sprite->blit(&temp, &(m_src_rects[m_current_frame]));
 }
 

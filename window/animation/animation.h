@@ -7,7 +7,7 @@
 class Animation {
 public:
   Animation();
-  Animation(char const * path, SDL_Renderer *screen_renderer, Uint32 num_frames, int x, int y, Sprite *sprite);
+  Animation(Uint32 num_frames, int x, int y, Sprite *sprite);
 
   void render_anim();
   void update();

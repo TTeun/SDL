@@ -12,7 +12,8 @@ public:
 
   void render_level();
   bool does_hit(int x, int y);
-
+  size_t level_height();
+  size_t level_width();
 private:
   void read_level();
   size_t m_level_width;
@@ -21,7 +22,13 @@ private:
   std::vector<short unsigned int> m_level_desc;
 };
 
+size_t inline Level::level_height(){
+  return m_level_height;
+}
 
+size_t inline Level::level_width(){
+  return m_level_width;
+}
 
 
 #endif

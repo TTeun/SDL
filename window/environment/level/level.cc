@@ -12,13 +12,13 @@ Level::Level(){}
 Level::Level(SDL_Renderer *screen_renderer)
   : m_level_sprite(new Sprite("assets/environment/tile.png", screen_renderer))
 {
-  m_level_width = 56;
-  m_level_height = 36;
+  cout << "Level constructor\n";
   m_level_desc.clear();
   read_level();
 }
 
 void Level::read_level(){
+  cout << "Reading level\n";
   ifstream level_file;
   level_file.open("window/environment/level/levels/level1");
 
@@ -44,8 +44,6 @@ void Level::read_level(){
   } else {
     cout << "Cannot read level file!\n";
   }
-
-
 }
 
 void Level::render_level(){
@@ -62,8 +60,11 @@ void Level::render_level(){
 bool Level::does_hit(int x, int y){
   y /= 32;
   x /= 32;
-  // if (y < 0 || x + m_level_width * y > m_level_height * m_level_width)
-  //   return true;
+  if (y < 0 || x < 0)
+    return true;
 
-  return m_level_desc[x + m_level_width * y] & 1;
+  assert(x + m_level_width * y < m_level_desc.size());
+
+  return m_level_desc[x + m_level_width * y] != 0;
+
 }
