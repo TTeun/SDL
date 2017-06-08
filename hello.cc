@@ -57,7 +57,7 @@ int main( int argc, char* args[] )
                 player->force_right(5.0f);
                 break;
               case SDLK_UP:
-                player->force_up(10);
+                player->force_up(13);
                 break;
               default:
                 break;

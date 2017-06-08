@@ -11,18 +11,27 @@ public:
   void force_up(int f);
   void force_right(int f);
 
+  int vx();
+  int vy();
 
 private:
   int m_weight;
   int m_vx;
   int m_vy;
 
-  static constexpr int g = 40;
+  static constexpr int g = 50;
   enum class STATE {
     GROUNDED,
     FALLING
   };
   STATE m_state = STATE::FALLING;
 };
+
+inline int RigidBody::vx(){
+  return m_vx;
+}
+inline int RigidBody::vy(){
+  return m_vy;
+}
 
 #endif

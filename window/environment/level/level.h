@@ -15,6 +15,9 @@ public:
   size_t level_height();
   size_t level_width();
 private:
+  SDL_Rect m_src_rects[2];
+  SDL_Rect m_des_rect;
+
   void read_level();
   size_t m_level_width;
   size_t m_level_height;

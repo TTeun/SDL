@@ -17,14 +17,18 @@ void RigidBody::update(){
   if (m_state == STATE::FALLING)
   {
     int yy = m_y;
-    if (Essential::collision()->level_collide_from_top(m_x, yy, m_w, m_h, m_vy / Essential::fps())){
+    if (Essential::collision()->level_collide_from_top(m_x, yy, m_w, m_h, m_vy / Essential::fps()))
+    {
       m_state = STATE::GROUNDED;
-      cout << "Grounded\n";
       m_vy = 0;
       m_y = yy;
-    } else {
+    }
+    else
+    {
       m_y += m_vy / Essential::fps();
       m_vy -= g * m_weight / Essential::fps();
+      if (m_vy < (-31 * Essential::fps()))
+        m_vy = -31 / Essential::fps();
     }
   }
   if ( Essential::collision()->no_ground_underneath(m_x, m_y, m_w, m_h) ){

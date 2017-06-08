@@ -18,10 +18,10 @@ public:
   };
 
   bool does_hit(int x, int y);
-  float vx = 0, vy = 0;
 
   int x();
   int y();
+
   void force_up(float f);
   void force_right(float f);
 
@@ -36,8 +36,8 @@ private:
 };
 
 inline void Player::set_dir(){
-  m_dir = vx > 0  ? DIRECTION::RIGHT :
-          vx == 0 ? DIRECTION::STAT  :
+  m_dir = m_rigidbody->vx() > 0  ? DIRECTION::RIGHT :
+          m_rigidbody->vx() == 0 ? DIRECTION::STAT  :
                     DIRECTION::LEFT  ;
 }
 
