@@ -58,7 +58,7 @@ int main( int argc, char* args[] )
                 if (player->m_state == Player::STATE::FALLING)
                   break;
 
-                player->vy = 40.0f;
+                player->vy = 80.0f;
                 player->m_state = Player::STATE::FALLING;
                 break;
               default:
@@ -73,6 +73,8 @@ int main( int argc, char* args[] )
 
 
       w->clear();
+      Essential::update_camera(player->x(), player->y());
+      SDL_GetWindowSize(w->window(), &width, &height);
       player->update();
       rain->render_rain();
       level->render_level();
@@ -80,10 +82,8 @@ int main( int argc, char* args[] )
       w->render();
 
 
-      SDL_GetWindowSize(w->window(), &width, &height);
       Essential::set_screen_width(width);
       Essential::set_screen_height(height);
-      Essential::update_camera(player->x, player->y);
     }
 
   delete w;

@@ -63,7 +63,8 @@ bool Level::does_hit(int x, int y){
   if (y < 0 || x < 0)
     return true;
 
-  assert(x + m_level_width * y < m_level_desc.size());
+  if (y >= static_cast<int>(m_level_height) || x >= static_cast<int>(m_level_width))
+    return false;
 
   return m_level_desc[x + m_level_width * y] != 0;
 

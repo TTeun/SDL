@@ -7,7 +7,8 @@ using namespace std;
 Player::Player(SDL_Renderer* screen_renderer)
   : m_sprite(new Sprite("assets/player/player.png",screen_renderer)),
     src_rect(new SDL_Rect),
-    des_rect(new SDL_Rect)
+    des_rect(new SDL_Rect),
+    m_rigidbody(new RigidBody(50, 50, 64, 64, 100))
 {
   des_rect->x = 0;
   des_rect->y = 0;
@@ -34,30 +35,30 @@ void Player::render_player(){
     src_rect->w = 32;
     src_rect->h = 32;
   }
-  des_rect->x = Essential::to_screen_x(x);
-  des_rect->y = Essential::to_screen_y(y + 64);
+  des_rect->x = Essential::to_screen_x(m_rigidbody->m_x);
+  des_rect->y = Essential::to_screen_y(m_rigidbody->m_y + m_rigidbody->m_h);
   m_sprite->blit(des_rect, src_rect);
 }
 
 void Player::update(){
   if (m_state == STATE::FALLING)
   {
-    if (Essential::collision()->level_collide(x, y + vy / Essential::fps(), 64, 64)){
+    if (Essential::collision()->level_collide(m_rigidbody->m_x, m_rigidbody->m_y + vy / Essential::fps(), 64, 64)){
       m_state = STATE::GROUNDED;
       vy = 0;
-      y /= 16;
-      y *= 16;
+      m_rigidbody->m_y /= 16;
+      m_rigidbody->m_y *= 16;
     } else {
-      y += vy / Essential::fps();
+      m_rigidbody->m_y += vy / Essential::fps();
       vy -= 7.0f / Essential::fps();
     }
   }
-  if (m_state == STATE::GROUNDED && (Essential::collision()->no_ground_underneath(x, y, 64, 64))){
+  if (m_state == STATE::GROUNDED && (Essential::collision()->no_ground_underneath(m_rigidbody->m_x, m_rigidbody->m_y, 64, 64))){
     m_state = STATE::FALLING;
   }
 
-  if (not Essential::collision()->level_collide(x + vx / Essential::fps(), y, 64, 64) )
-    x += vx / Essential::fps();
+  if (not Essential::collision()->level_collide(m_rigidbody->m_x + vx / Essential::fps(), m_rigidbody->m_y, 64, 64) )
+    m_rigidbody->m_x += vx / Essential::fps();
   else
     vx = 0;
 
@@ -65,5 +66,5 @@ void Player::update(){
 }
 
 bool Player::does_hit(int _x, int _y){
-  return (_x >= x ) && (_x <= x + 64) && (_y >= y) && (_y <= y + 64);
+  return m_rigidbody->does_collide_with_piont(_x, _y);
 }

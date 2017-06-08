@@ -18,8 +18,6 @@ public:
 private:
   Level *m_level;
   Player *m_player;
-
-
 };
 
 bool inline Collision::level_collide(int x, int y){
@@ -41,6 +39,5 @@ bool inline Collision::no_ground_underneath(int x, int y, int w, int h){
 bool inline Collision::player_collide(int x, int y){
   return m_player->does_hit(x, y);;
 }
-
 
 #endif

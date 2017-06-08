@@ -16,11 +16,11 @@ public:
   void render_rain();
 
 private:
-  size_t num_drops = 140;
+  size_t num_drops = 250;
+  SDL_Renderer *m_screen_renderer = nullptr;
   Sprite *m_rain_drop = nullptr;
   Sprite *m_rain_hit = nullptr;
 
-  SDL_Renderer *m_screen_renderer = nullptr;
   std::vector<drop_info> m_drops;
   Uint32 prev_tick;
   int m_width;
