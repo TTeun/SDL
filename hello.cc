@@ -46,18 +46,15 @@ int main( int argc, char* args[] )
             /* Check the SDLKey values and move change the coords */
             switch( e.key.keysym.sym ){
               case SDLK_LEFT:
-                player->set_dir(Player::DIRECTION::LEFT);
                 player->vx -= 30.0f;
                 break;
               case SDLK_RIGHT:
-                player->set_dir(Player::DIRECTION::RIGHT);
                 player->vx += 30.0f;
                 break;
               case SDLK_UP:
                 if (player->m_state == Player::STATE::FALLING)
                   break;
 
-                player->set_dir(Player::DIRECTION::STAT);
                 player->vy = 40.0f;
                 player->m_state = Player::STATE::FALLING;
                 break;

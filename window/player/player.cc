@@ -16,19 +16,19 @@ Player::Player(SDL_Renderer* screen_renderer)
 }
 
 void Player::render_player(){
-  if (dir == DIRECTION::STAT){
+  if (m_dir == DIRECTION::STAT){
     src_rect->x = 0;
     src_rect->y = 0;
     src_rect->w = 32;
     src_rect->h = 32;
   }
-  else if (dir == DIRECTION::RIGHT){
+  else if (m_dir == DIRECTION::RIGHT){
     src_rect->x = 32;
     src_rect->y = 0;
     src_rect->w = 32;
     src_rect->h = 32;
   }
-  else if (dir == DIRECTION::LEFT){
+  else if (m_dir == DIRECTION::LEFT){
     src_rect->x = 64;
     src_rect->y = 0;
     src_rect->w = 32;
@@ -42,23 +42,26 @@ void Player::render_player(){
 void Player::update(){
   if (m_state == STATE::FALLING)
   {
-    if (Essential::collision()->level_collide(x, y + vy / Essential::fps())){
+    if (Essential::collision()->level_collide(x, y + vy / Essential::fps(), 64, 64)){
       m_state = STATE::GROUNDED;
       vy = 0;
       y /= 16;
       y *= 16;
     } else {
+      y += vy / Essential::fps();
       vy -= 7.0f / Essential::fps();
     }
   }
-  if (m_state == STATE::GROUNDED && (Essential::collision()->no_ground_underneath(x, y))){
+  if (m_state == STATE::GROUNDED && (Essential::collision()->no_ground_underneath(x, y, 64, 64))){
     m_state = STATE::FALLING;
   }
 
-  x += vx / Essential::fps();
-  y += vy / Essential::fps();
+  if (not Essential::collision()->level_collide(x + vx / Essential::fps(), y, 64, 64) )
+    x += vx / Essential::fps();
+  else
+    vx = 0;
 
-  cout << "x :" << x << ", y: " << y << '\n';
+  set_dir();
 }
 
 bool Player::does_hit(int _x, int _y){

@@ -14,8 +14,10 @@ public:
   bool does_hit(int x, int y);
 
 private:
+  size_t m_level_width;
+  size_t m_level_height;
   Sprite *m_level_sprite = nullptr;
-  std::vector<std::vector<std::pair<size_t, size_t>>> m_level_desc;
+  std::vector<short unsigned int> m_level_desc;
 };
 
 

@@ -11,7 +11,7 @@ Uint32 fall(Uint32 interval, void *param){
 
     if (Essential::collision()->level_collide(info.x, info.y) || Essential::collision()->player_collide(info.x, info.y))
     {
-      t_rain->add_hit( Essential::to_screen_x( info.x), Essential::to_screen_y(info.y + 32));
+      t_rain->add_hit( Essential::to_screen_x(info.x), Essential::to_screen_y(info.y + 20));
       info.reset();
     }
 

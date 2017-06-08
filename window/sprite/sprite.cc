@@ -29,10 +29,7 @@ Sprite::Sprite(char const * path, SDL_Renderer *screen_renderer)
   }
 
   SDL_FreeSurface( temp_surface );
-  int _w, _h;
-  SDL_QueryTexture(m_texture, NULL, NULL, &_w, &_h);
-  dest_rec.w = _w;
-  dest_rec.h = _h;
+  SDL_QueryTexture(m_texture, NULL, NULL, &dest_rec.w, &dest_rec.h);
 }
 
 Sprite::~Sprite(){
