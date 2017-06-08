@@ -53,9 +53,7 @@ void Level::read_level(){
 
         --index;
       }
-
     }
-
   } else {
     cout << "Cannot read level file!\n";
   }

@@ -15,7 +15,8 @@ int Essential::m_level_width = 1000;
 int Essential::m_level_height = 800;
 int Essential::m_camera_x = 0;
 int Essential::m_camera_y = 0;
-int Essential::m_fps = 144;
+int Essential::m_fps = 60;
+
 Collision *Essential::m_collision;
 
 using namespace std;
@@ -46,9 +47,7 @@ int main( int argc, char* args[] )
       while( SDL_PollEvent( &e ) != 0 )
       {
         switch( e.type ){
-          /* Look for a keypress */
           case SDL_KEYDOWN:
-            /* Check the SDLKey values and move change the coords */
             switch( e.key.keysym.sym ){
               case SDLK_LEFT:
                 player->force_right(-5.0f);
@@ -68,8 +67,6 @@ int main( int argc, char* args[] )
             break;
           }
       }
-
-
       w->clear();
 
       Essential::update_camera(player->x(), player->y());
@@ -81,12 +78,10 @@ int main( int argc, char* args[] )
       player->update();
       w->render();
 
-
       Essential::set_screen_width(width);
       Essential::set_screen_height(height);
       while (last_tick + ticks_per_frame > SDL_GetTicks())
         ;
-        // SDL_Delay()
     }
 
   delete w;

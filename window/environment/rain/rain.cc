@@ -30,7 +30,6 @@ Uint32 fall(Uint32 interval, void *param){
     info.y += info.vy / Essential::fps();
 
   }
-
   // cout << SDL_GetTicks() - t_rain->prev_tick << '\n';
   t_rain->prev_tick = SDL_GetTicks();
   t_rain->needs_timer = true;
