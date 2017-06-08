@@ -8,7 +8,7 @@ Player::Player(SDL_Renderer* screen_renderer)
   : m_sprite(new Sprite("assets/player/player.png",screen_renderer)),
     src_rect(new SDL_Rect),
     des_rect(new SDL_Rect),
-    m_rigidbody(new RigidBody(50, 50, 64, 64, 100))
+    m_rigidbody(new RigidBody(350, 550, 64, 64, 300))
 {
   des_rect->x = 0;
   des_rect->y = 0;
@@ -41,27 +41,7 @@ void Player::render_player(){
 }
 
 void Player::update(){
-  if (m_state == STATE::FALLING)
-  {
-    if (Essential::collision()->level_collide(m_rigidbody->m_x, m_rigidbody->m_y + vy / Essential::fps(), 64, 64)){
-      m_state = STATE::GROUNDED;
-      vy = 0;
-      m_rigidbody->m_y /= 16;
-      m_rigidbody->m_y *= 16;
-    } else {
-      m_rigidbody->m_y += vy / Essential::fps();
-      vy -= 7.0f / Essential::fps();
-    }
-  }
-  if (m_state == STATE::GROUNDED && (Essential::collision()->no_ground_underneath(m_rigidbody->m_x, m_rigidbody->m_y, 64, 64))){
-    m_state = STATE::FALLING;
-  }
-
-  if (not Essential::collision()->level_collide(m_rigidbody->m_x + vx / Essential::fps(), m_rigidbody->m_y, 64, 64) )
-    m_rigidbody->m_x += vx / Essential::fps();
-  else
-    vx = 0;
-
+  m_rigidbody->update();
   set_dir();
 }
 

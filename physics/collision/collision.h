@@ -29,11 +29,11 @@ bool inline Collision::level_collide(int x, int y, int w, int h){
 }
 
 bool inline Collision::no_ground_underneath(int x, int y){
-  return not m_level->does_hit(x, y - 31);
+  return not m_level->does_hit(x, y - 5);
 }
 
 bool inline Collision::no_ground_underneath(int x, int y, int w, int h){
-  return not level_collide(x, y - 31, w, h);
+  return not level_collide(x, y - 5, w, h);
 }
 
 bool inline Collision::player_collide(int x, int y){

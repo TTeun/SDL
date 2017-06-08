@@ -2,7 +2,7 @@
 #define __PLAYER__H
 
 #include "../sprite/sprite.h"
-#include "../../physics/rigidbody.h"
+#include "../../physics/rigidbody/rigidbody.h"
 
 class Player {
 public:
@@ -19,14 +19,11 @@ public:
 
   bool does_hit(int x, int y);
   float vx = 0, vy = 0;
+
   int x();
   int y();
-
-  enum class STATE {
-    GROUNDED,
-    FALLING
-  };
-  STATE m_state = STATE::FALLING;
+  void force_up(float f);
+  void force_right(float f);
 
 private:
   void set_dir();
@@ -50,6 +47,14 @@ inline int Player::x(){
 
 inline int Player::y(){
   return m_rigidbody->m_y;
+}
+
+inline void Player::force_up(float f) {
+  m_rigidbody->force_up(f);
+}
+
+inline void Player::force_right(float f) {
+  m_rigidbody->force_right(f);
 }
 
 #endif

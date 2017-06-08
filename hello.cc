@@ -32,6 +32,8 @@ int main( int argc, char* args[] )
 
   Rain *rain = new Rain( w->screen_renderer() );
 
+  int ticks_per_frame = 1000 / Essential::fps();
+  int last_tick;
 
   int width, height;
   bool running = true;
@@ -40,7 +42,7 @@ int main( int argc, char* args[] )
   if (w->is_success())
     while (running)
     {
-
+      last_tick = SDL_GetTicks();
       while( SDL_PollEvent( &e ) != 0 )
       {
         switch( e.type ){
@@ -49,17 +51,13 @@ int main( int argc, char* args[] )
             /* Check the SDLKey values and move change the coords */
             switch( e.key.keysym.sym ){
               case SDLK_LEFT:
-                player->vx -= 30.0f;
+                player->force_right(-30.0f);
                 break;
               case SDLK_RIGHT:
-                player->vx += 30.0f;
+                player->force_right(30.0f);
                 break;
               case SDLK_UP:
-                if (player->m_state == Player::STATE::FALLING)
-                  break;
-
-                player->vy = 80.0f;
-                player->m_state = Player::STATE::FALLING;
+                player->force_up(7.0);
                 break;
               default:
                 break;
@@ -73,17 +71,22 @@ int main( int argc, char* args[] )
 
 
       w->clear();
+
       Essential::update_camera(player->x(), player->y());
       SDL_GetWindowSize(w->window(), &width, &height);
-      player->update();
+
       rain->render_rain();
       level->render_level();
       player->render_player();
+      player->update();
       w->render();
 
 
       Essential::set_screen_width(width);
       Essential::set_screen_height(height);
+      while (last_tick + ticks_per_frame > SDL_GetTicks())
+        ;
+        // SDL_Delay()
     }
 
   delete w;
