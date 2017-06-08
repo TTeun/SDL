@@ -14,6 +14,7 @@ public:
   bool does_hit(int x, int y);
 
 private:
+  void read_level();
   size_t m_level_width;
   size_t m_level_height;
   Sprite *m_level_sprite = nullptr;

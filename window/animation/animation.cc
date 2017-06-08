@@ -1,5 +1,6 @@
 #include "animation.h"
 #include <iostream>
+#include "../../essential/essential.h"
 
 using namespace std;
 
@@ -50,7 +51,10 @@ void Animation::render_anim(){
   if (m_current_frame >= m_num_frames)
     return;
 
-  m_sprite->blit(&des_rect, &(m_src_rects[m_current_frame]));
+  SDL_Rect temp = des_rect;
+  temp.y = Essential::to_screen_y(temp.y);
+  temp.x = Essential::to_screen_x(temp.x);
+  m_sprite->blit(&temp, &(m_src_rects[m_current_frame]));
 }
 
 bool Animation::is_done(){
