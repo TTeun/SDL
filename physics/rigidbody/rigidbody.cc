@@ -20,6 +20,8 @@ void RigidBody::update(){
     if (Essential::collision()->level_collide_from_top(m_x, yy, m_w, m_h, m_vy / Essential::fps()))
     {
       m_state = STATE::GROUNDED;
+      has_jumped = false;
+      has_jumped_twice = false;
       m_vy = 0;
       m_y = yy;
     }
@@ -40,12 +42,19 @@ void RigidBody::update(){
   else
     m_vx = 0;
 
-  // m_vx *= 0.7; // Something log
+  m_vx *= 0.7; // Something log
 }
 
 void RigidBody::force_up(int f){
-  if (m_state == STATE::FALLING)
+  // Moet nog een button release ding op
+
+  if (m_state == STATE::FALLING && ((not can_double_jump) || has_jumped_twice))
     return;
+
+  if (has_jumped)
+    has_jumped_twice = true;
+  else
+    has_jumped = true;
 
   m_state = STATE::FALLING;
   // m_y += 5;

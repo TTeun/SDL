@@ -40,6 +40,9 @@ int main( int argc, char* args[] )
   bool running = true;
   SDL_Event e;
 
+  const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+
   if (w->is_success())
     while (running)
     {
@@ -47,26 +50,35 @@ int main( int argc, char* args[] )
       while( SDL_PollEvent( &e ) != 0 )
       {
         switch( e.type ){
-          case SDL_KEYDOWN:
-            switch( e.key.keysym.sym ){
-              case SDLK_LEFT:
-                player->force_right(-5.0f);
-                break;
-              case SDLK_RIGHT:
-                player->force_right(5.0f);
-                break;
-              case SDLK_UP:
-                player->force_up(13);
-                break;
-              default:
-                break;
-            }
-            break;
+          // case SDL_KEYDOWN:
+          //   switch( e.key.keysym.sym ){
+          //     case SDLK_LEFT:
+          //       player->force_right(-5.0f);
+          //       break;
+          //     case SDLK_RIGHT:
+          //       player->force_right(5.0f);
+          //       break;
+          //     case SDLK_UP:
+          //       player->force_up(13);
+          //       break;
+          //     default:
+          //       break;
+          //   }
+          //   break;
           case SDL_QUIT:
             running = false;
             break;
           }
       }
+
+      if (state[SDL_SCANCODE_RIGHT])
+        player->force_right(5);
+      if (state[SDL_SCANCODE_LEFT])
+        player->force_right(-5);
+      if (state[SDL_SCANCODE_UP])
+        player->force_up(13);
+
+
       w->clear();
 
       Essential::update_camera(player->x(), player->y());

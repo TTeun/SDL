@@ -18,6 +18,9 @@ private:
   int m_weight;
   int m_vx;
   int m_vy;
+  bool has_jumped;
+  bool has_jumped_twice;
+  bool can_double_jump = true;
 
   static constexpr int g = 50;
   enum class STATE {
