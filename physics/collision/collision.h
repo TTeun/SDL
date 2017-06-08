@@ -15,6 +15,8 @@ public:
   bool no_ground_underneath(int x, int y);
   bool no_ground_underneath(int x, int y, int w, int h);
 
+  bool level_collide_from_top(int x, int &y, int w, int h, int vy);
+
 private:
   Level *m_level;
   Player *m_player;

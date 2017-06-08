@@ -2,6 +2,8 @@
 #include "../../essential/essential.h"
 #include <iostream>
 
+using namespace std;
+
 RigidBody::RigidBody(int x, int y, int w, int h, int weight, int vx, int vy)
   : Box(Box(x, y, w, h))
 {
@@ -14,12 +16,12 @@ void RigidBody::update(){
 
   if (m_state == STATE::FALLING)
   {
-    if (Essential::collision()->level_collide(m_x, m_y + m_vy / Essential::fps(), m_w, m_h)){
+    int yy = m_y;
+    if (Essential::collision()->level_collide_from_top(m_x, yy, m_w, m_h, m_vy / Essential::fps())){
       m_state = STATE::GROUNDED;
-
+      cout << "Grounded\n";
       m_vy = 0;
-      m_y /= 16;
-      m_y *= 16;
+      m_y = yy;
     } else {
       m_y += m_vy / Essential::fps();
       m_vy -= g * m_weight / Essential::fps();
@@ -34,10 +36,10 @@ void RigidBody::update(){
   else
     m_vx = 0;
 
-  m_vx *= (1.0f - 5.0f / (Essential::fps()));
+  // m_vx *= 0.7; // Something log
 }
 
-void RigidBody::force_up(float f){
+void RigidBody::force_up(int f){
   if (m_state == STATE::FALLING)
     return;
 
@@ -46,9 +48,9 @@ void RigidBody::force_up(float f){
   m_vy = 2 * f * m_weight;
 }
 
-void RigidBody::force_right(float f){
-  m_vx += 0.2 * f * m_weight;
-  m_vx = m_vx > 950  ?  950 :
-         m_vx < -950 ? -950 :
+void RigidBody::force_right(int f){
+  m_vx += 122 * f * m_weight / Essential::fps();
+  m_vx = m_vx > 1000  ?  1000 :
+         m_vx < -1000 ? -1000 :
          m_vx;
 }

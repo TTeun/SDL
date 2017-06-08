@@ -8,16 +8,16 @@ public:
   RigidBody(int x, int y, int w, int h, int weight, int vx = 0, int vy = 0);
 
   void update();
-  void force_up(float f);
-  void force_right(float f);
+  void force_up(int f);
+  void force_right(int f);
 
 
 private:
-  float m_weight;
-  float m_vx;
-  float m_vy;
+  int m_weight;
+  int m_vx;
+  int m_vy;
 
-  static constexpr float g = 90;
+  static constexpr int g = 40;
   enum class STATE {
     GROUNDED,
     FALLING
