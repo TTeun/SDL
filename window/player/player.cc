@@ -1,4 +1,8 @@
 #include "player.h"
+#include <iostream>
+#include "../../essential/essential.h"
+
+using namespace std;
 
 Player::Player(SDL_Renderer* screen_renderer)
   : m_sprite(new Sprite("assets/player/player.png",screen_renderer)),
@@ -36,16 +40,27 @@ void Player::render_player(){
 }
 
 void Player::update(){
-  if (Essential::collision()->level_collide(x, y + vy)){
-    m_state = STATE::GROUNDED;
-    vy = 0;
-    y /= 16;
-    y *= 16;
-  }
   if (m_state == STATE::FALLING)
-    vy -= .3f / Essential::fps();
-
+  {
+    if (Essential::collision()->level_collide(x, y + vy)){
+      m_state = STATE::GROUNDED;
+      vy = 0;
+      y /= 16;
+      y *= 16;
+    } else {
+      vy -= .3f / Essential::fps();
+    }
+  }
+  if (m_state == STATE::GROUNDED && (Essential::collision()->no_ground_underneath(x, y))){
+    m_state = STATE::FALLING;
+  }
 
   x += vx;
   y += vy;
+
+  cout << "x :" << x << ", y: " << y << '\n';
+}
+
+bool Player::does_hit(int _x, int _y){
+  return (_x >= x ) && (_x <= x + 64) && (_y >= y) && (_y <= y + 64);
 }

@@ -2,7 +2,6 @@
 #define __PLAYER__H
 
 #include "../sprite/sprite.h"
-#include "../../essential/essential.h"
 
 class Player {
 public:
@@ -20,7 +19,7 @@ public:
     dir = _dir;
   }
 
-
+  bool does_hit(int x, int y);
 
   float x = 64, y = 500, vx = 0, vy = 0;
   enum class STATE {

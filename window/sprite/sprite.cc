@@ -48,6 +48,9 @@ void Sprite::blit( SDL_Rect *dest_rec, SDL_Rect *src_rect )
 
 void Sprite::blit( int _x, int _y, SDL_Rect *src_rect )
 {
+  if (_x < 0 || _x > 100000UL)
+    return;
+
   dest_rec.x = _x;
   dest_rec.y = _y;
   SDL_RenderCopy(m_screen_renderer, m_texture, NULL, &dest_rec);
@@ -55,6 +58,9 @@ void Sprite::blit( int _x, int _y, SDL_Rect *src_rect )
 
 void Sprite::blit( int _x, int _y, int _w, int _h )
 {
+  if (_x < 0 || _x > 100000UL)
+    return;
+
   SDL_Rect dest_rec;
   dest_rec.x = _x;
   dest_rec.y = _y;

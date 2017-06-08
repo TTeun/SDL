@@ -3,10 +3,10 @@
 #include "window/window.h"
 #include "window/sprite/sprite.h"
 #include "window/environment/rain/rain.h"
+#include "physics/collision/collision.h"
 #include "window/environment/level/level.h"
 #include "window/player/player.h"
 #include "window/animation/animation.h"
-#include "physics/collision/collision.h"
 #include <SDL2/SDL.h>
 
 int Essential::m_screen_width = 1000;
@@ -25,7 +25,7 @@ int main( int argc, char* args[] )
   Rain *rain = new Rain( w->screen_renderer() );
   Player *player = new Player( w->screen_renderer() );
 
-  Collision *col = new Collision(level);
+  Collision *col = new Collision(level, player);
   Essential::set_collision(col);
 
   int width, height;
@@ -45,15 +45,17 @@ int main( int argc, char* args[] )
             switch( e.key.keysym.sym ){
               case SDLK_LEFT:
                 player->set_dir(Player::DIRECTION::LEFT);
-                --player->vx;
+                player->vx -= 0.3;
                 break;
               case SDLK_RIGHT:
                 player->set_dir(Player::DIRECTION::RIGHT);
-                ++player->vx;
+                player->vx += 0.3;
                 break;
               case SDLK_UP:
+                if (player->m_state == Player::STATE::FALLING)
+                  break;
                 player->set_dir(Player::DIRECTION::STAT);
-                player->vy = 1.0f;
+                player->vy = 1.9f;
                 player->m_state = Player::STATE::FALLING;
                 break;
               default:
@@ -66,13 +68,12 @@ int main( int argc, char* args[] )
           }
       }
 
-      player->update();
-
       SDL_GetWindowSize(w->window(), &width, &height);
       Essential::set_screen_width(width);
       Essential::set_screen_height(height);
 
       w->clear();
+      player->update();
       rain->render_rain();
       level->render_level();
       player->render_player();

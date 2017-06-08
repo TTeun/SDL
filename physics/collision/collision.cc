@@ -1,9 +1,9 @@
 #include "collision.h"
+#include <iostream>
 
-Collision::Collision(Level *level)
-  : m_level(level)
+using namespace std;
+
+Collision::Collision(Level *level, Player *player)
+  : m_level(level),
+    m_player(player)
 {}
-
-bool Collision::level_collide(int x, int y){
-  return m_level->does_hit(x, y);
-}
