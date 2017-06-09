@@ -4,11 +4,11 @@
 
 using namespace std;
 
-Player::Player(SDL_Renderer* screen_renderer)
+Player::Player(SDL_Renderer* screen_renderer, int _x, int _y)
   : m_sprite(new Sprite("game/assets/player/player.png",screen_renderer)),
     src_rect(new SDL_Rect),
     des_rect(new SDL_Rect),
-    m_rigidbody(new RigidBody(250, 550, 64, 64, 50))
+    m_rigidbody(new RigidBody(_x, _y, 64, 64, 50))
 {
   des_rect->x = 0;
   des_rect->y = 0;

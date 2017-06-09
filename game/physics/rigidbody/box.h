@@ -4,7 +4,7 @@
 class Box {
 public:
   Box(float x, float y, float w, float h)
-    : m_x(x), m_y(y), m_w(w), m_h(h)
+    : m_x(x), m_y(y + h), m_w(w), m_h(h)
   {}
   bool does_collide_with_piont(float x, float y);
 

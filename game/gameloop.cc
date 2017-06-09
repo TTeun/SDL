@@ -6,8 +6,9 @@ using namespace std;
 GameLoop::GameLoop( Window *_w )
   : w(_w)
 {
+  cout << "GameLoop constructor\n";
   level = make_unique<Level>( w->screen_renderer() );
-  player = make_unique<Player>( w->screen_renderer() );
+  player = make_unique<Player>( w->screen_renderer(), level->start_x(), level->start_y() );
   col = make_unique<Collision>(level.get(), player.get());
   rain = make_unique<Rain>( w->screen_renderer() );
 
@@ -18,6 +19,7 @@ GameLoop::GameLoop( Window *_w )
 }
 
 GameLoop::~GameLoop(){
+  cout << "GameLoop destructor\n";
   rain = nullptr;
   col = nullptr;
   player = nullptr;
@@ -33,7 +35,6 @@ void GameLoop::start(){
   SDL_Event e;
 
   const Uint8 *state = SDL_GetKeyboardState(NULL);
-
 
   if (w->is_success())
     while (running)

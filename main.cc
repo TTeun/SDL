@@ -15,8 +15,8 @@ using namespace std;
 
 int main(){
   unique_ptr<Window> w = make_unique<Window>( Essential::screen_width(), Essential::screen_height() );
+
   unique_ptr<GameLoop> game_loop = make_unique<GameLoop>(w.get());
   game_loop->start();
-
 
 }

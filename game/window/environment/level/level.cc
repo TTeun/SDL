@@ -44,13 +44,20 @@ void Level::read_level(){
     m_level_desc.resize(m_level_width * m_level_height);
     size_t index = m_level_width * m_level_height - 1;
     getline(level_file, line);
+    int height = m_level_height - 2;
     while (getline(level_file, line))
     {
+      --height;
       assert(line.length() == m_level_width);
       for (size_t i = 0; i != m_level_width; ++i){
         m_level_desc[index] = line[i] == '.' ? 0 :
+                              line[i] == 'S' ? 0 :
                               line[i] == 'g' ? 1 : 2 ;
 
+        if (line[i] == 'S'){
+          m_start_x = 32 * (m_level_width - i - 1);
+          m_start_y = 32 * height;
+        }
         --index;
       }
     }
@@ -61,7 +68,7 @@ void Level::read_level(){
 
 Level::~Level(){
   cout << "Level destructor\n";
-  
+
 }
 
 void Level::render_level(){

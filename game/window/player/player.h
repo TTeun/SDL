@@ -6,7 +6,7 @@
 
 class Player {
 public:
-  Player(SDL_Renderer* screen_renderer);
+  Player(SDL_Renderer* screen_renderer, int _x, int _y);
   ~Player();
   void render_player();
   void update();
