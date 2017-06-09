@@ -10,7 +10,7 @@ using namespace std;
 Level::Level(){}
 
 Level::Level(SDL_Renderer *screen_renderer)
-  : m_level_sprite(new Sprite("assets/environment/grass.png", screen_renderer))
+  : m_level_sprite(new Sprite("game/assets/environment/grass.png", screen_renderer))
 {
   cout << "Level constructor\n";
   m_level_desc.clear();
@@ -33,7 +33,7 @@ Level::Level(SDL_Renderer *screen_renderer)
 void Level::read_level(){
   cout << "Reading level\n";
   ifstream level_file;
-  level_file.open("window/environment/level/levels/level1");
+  level_file.open("game/window/environment/level/levels/level2");
 
   string line;
   if (level_file.is_open())

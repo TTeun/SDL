@@ -18,7 +18,6 @@ private:
   static int m_fps;
   static Collision* m_collision;
 
-
 public:
   static inline int level_width(){
     return m_level_width;

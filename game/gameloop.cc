@@ -1,29 +1,11 @@
+#include "gameloop.h"
 #include <iostream>
-#include "essential/essential.h"
-#include "window/window.h"
-#include "window/sprite/sprite.h"
-#include "window/environment/rain/rain.h"
-#include "physics/collision/collision.h"
-#include "window/environment/level/level.h"
-#include "window/player/player.h"
-#include "window/animation/animation.h"
-#include <SDL2/SDL.h>
-
-int Essential::m_screen_width = 1000;
-int Essential::m_screen_height = 800;
-int Essential::m_level_width = 1000;
-int Essential::m_level_height = 800;
-int Essential::m_camera_x = 0;
-int Essential::m_camera_y = 0;
-int Essential::m_fps = 60;
-
-Collision *Essential::m_collision;
 
 using namespace std;
 
-int main( int argc, char* args[] )
+GameLoop::GameLoop( Window *_w )
+  : w(_w)
 {
-  Window *w = new Window( Essential::screen_width(), Essential::screen_height() );
   Level *level = new Level( w->screen_renderer() );
   Player *player = new Player( w->screen_renderer() );
   Collision *col = new Collision(level, player);
@@ -50,21 +32,6 @@ int main( int argc, char* args[] )
       while( SDL_PollEvent( &e ) != 0 )
       {
         switch( e.type ){
-          // case SDL_KEYDOWN:
-          //   switch( e.key.keysym.sym ){
-          //     case SDLK_LEFT:
-          //       player->force_right(-5.0f);
-          //       break;
-          //     case SDLK_RIGHT:
-          //       player->force_right(5.0f);
-          //       break;
-          //     case SDLK_UP:
-          //       player->force_up(13);
-          //       break;
-          //     default:
-          //       break;
-          //   }
-          //   break;
           case SDL_QUIT:
             running = false;
             break;
@@ -76,7 +43,7 @@ int main( int argc, char* args[] )
       if (state[SDL_SCANCODE_LEFT])
         player->force_right(-5);
       if (state[SDL_SCANCODE_UP])
-        player->force_up(13);
+        player->force_up(8);
 
 
       w->clear();
@@ -98,5 +65,4 @@ int main( int argc, char* args[] )
 
   delete w;
   delete rain;
-	return 0;
 }

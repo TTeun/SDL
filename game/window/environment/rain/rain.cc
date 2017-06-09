@@ -39,8 +39,8 @@ Uint32 fall(Uint32 interval, void *param){
 
 Rain::Rain(SDL_Renderer* screen_renderer)
   : m_screen_renderer(screen_renderer),
-    m_rain_drop(new Sprite("assets/environment/rain_drop.png",screen_renderer)),
-    m_rain_hit(new Sprite("assets/environment/rain_hit.png",screen_renderer))
+    m_rain_drop(new Sprite("game/assets/environment/rain_drop.png",screen_renderer)),
+    m_rain_hit(new Sprite("game/assets/environment/rain_hit.png",screen_renderer))
 {
   srand ( time(NULL) );
   m_drops.reserve(num_drops);

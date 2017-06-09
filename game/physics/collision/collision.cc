@@ -13,7 +13,9 @@ bool Collision::level_collide_from_top(int x, int &y, int w, int h, int vy){
   if (vy >= 0)
     return false;
 
-  if (m_level->does_hit(x, y) || m_level->does_hit(x + w, y) || m_level->does_hit(x + w / 2, y)){
+  y -= h;
+
+  if (  (m_level->does_hit(x, y) || m_level->does_hit(x + w, y) || m_level->does_hit(x + w / 2, y))  && ( (y % 31) > 28)){
     y /= 32;
     ++y;
     y *= 32;
@@ -23,7 +25,6 @@ bool Collision::level_collide_from_top(int x, int &y, int w, int h, int vy){
   if ((y / 32) == ((y + vy) / 32))
     return false;
 
-  y -= h;
 
   int y_start = y;
   while (y >= y_start + vy)

@@ -33,9 +33,9 @@ void RigidBody::update(){
         m_vy = -31 / Essential::fps();
     }
   }
-  if ( Essential::collision()->no_ground_underneath(m_x, m_y, m_w, m_h) ){
+  if ( Essential::collision()->no_ground_underneath(m_x, m_y, m_w, m_h) )
     m_state = STATE::FALLING;
-  }
+
 
   if (not Essential::collision()->level_collide(m_x + m_vx / Essential::fps(), m_y, m_w, m_h) )
     m_x += m_vx / Essential::fps();

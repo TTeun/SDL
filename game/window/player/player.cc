@@ -5,7 +5,7 @@
 using namespace std;
 
 Player::Player(SDL_Renderer* screen_renderer)
-  : m_sprite(new Sprite("assets/player/player.png",screen_renderer)),
+  : m_sprite(new Sprite("game/assets/player/player.png",screen_renderer)),
     src_rect(new SDL_Rect),
     des_rect(new SDL_Rect),
     m_rigidbody(new RigidBody(250, 550, 64, 64, 50))

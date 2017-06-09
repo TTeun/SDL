@@ -1,5 +1,15 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = hello.cc window/window.cc window/sprite/sprite.cc window/environment/rain/rain.cc window/player/player.cc window/animation/animation.cc window/environment/level/level.cc physics/collision/collision.cc physics/rigidbody/rigidbody.cc physics/math.cc
+OBJS = main.cc \
+			game/gameloop.cc \
+			game/window/window.cc \
+			game/window/sprite/sprite.cc \
+			game/window/environment/rain/rain.cc \
+			game/window/player/player.cc \
+			game/window/animation/animation.cc \
+			game/window/environment/level/level.cc \
+			game/physics/collision/collision.cc \
+			game/physics/rigidbody/rigidbody.cc \
+			game/physics/math.cc
 
 #CC specifies which compiler we're using
 CC = g++
@@ -12,7 +22,7 @@ COMPILER_FLAGS = -std=c++14 -Wall
 LINKER_FLAGS = -lSDL2 -lSDL2_image
 
 #OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = hello
+OBJ_NAME = hell
 
 #This is the target that compiles our executable
 all : $(OBJS)
