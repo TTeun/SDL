@@ -9,6 +9,8 @@
 #include "window/environment/level/level.h"
 #include "window/player/player.h"
 #include "window/animation/animation.h"
+
+#include <memory>
 #include <SDL2/SDL.h>
 
 class  GameLoop {
@@ -20,6 +22,12 @@ public:
 
 private:
   Window *w;
+  std::unique_ptr<Level> level;
+  std::unique_ptr<Player> player;
+  std::unique_ptr<Collision> col;
+  std::unique_ptr<Rain> rain;
+
+
 
 };
 

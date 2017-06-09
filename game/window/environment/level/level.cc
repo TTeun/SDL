@@ -59,6 +59,11 @@ void Level::read_level(){
   }
 }
 
+Level::~Level(){
+  cout << "Level destructor\n";
+  
+}
+
 void Level::render_level(){
   size_t h, w;
   for (size_t i = 0; i != m_level_desc.size(); ++i)
@@ -72,7 +77,6 @@ void Level::render_level(){
       else
         m_level_sprite->blit(&m_des_rect, &(m_src_rects[1]));
     }
-
 }
 
 bool Level::does_hit(int x, int y){

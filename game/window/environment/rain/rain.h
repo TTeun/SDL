@@ -13,6 +13,7 @@
 class Rain {
 public:
   Rain(SDL_Renderer* screen_renderer);
+  ~Rain();
   void render_rain();
 
 private:

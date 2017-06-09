@@ -9,6 +9,7 @@ class Level {
 public:
   Level();
   Level(SDL_Renderer *screen_renderer);
+  ~Level();
 
   void render_level();
   bool does_hit(int x, int y);

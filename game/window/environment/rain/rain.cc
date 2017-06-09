@@ -42,12 +42,16 @@ Rain::Rain(SDL_Renderer* screen_renderer)
     m_rain_drop(new Sprite("game/assets/environment/rain_drop.png",screen_renderer)),
     m_rain_hit(new Sprite("game/assets/environment/rain_hit.png",screen_renderer))
 {
+  cout << "Rain constructor\n";
   srand ( time(NULL) );
   m_drops.reserve(num_drops);
   for (size_t i = 0; i < num_drops; ++i)
     m_drops.push_back(drop_info());
 
-  cout << "Rain started\n";
+}
+
+Rain::~Rain(){
+  cout << "Rain destructor\n";
 }
 
 void Rain::render_rain(){

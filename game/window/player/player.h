@@ -7,6 +7,7 @@
 class Player {
 public:
   Player(SDL_Renderer* screen_renderer);
+  ~Player();
   void render_player();
   void update();
 
@@ -18,10 +19,8 @@ public:
   };
 
   bool does_hit(int x, int y);
-
   int x();
   int y();
-
   void force_up(float f);
   void force_right(float f);
 

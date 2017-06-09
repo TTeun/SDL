@@ -11,11 +11,12 @@ int Essential::m_fps = 60;
 
 Collision *Essential::m_collision;
 
+using namespace std;
 
 int main(){
-  Window *w = new Window( Essential::screen_width(), Essential::screen_height() );
-  GameLoop *game_loop = new GameLoop(w);
-  // game_loop->start();
+  unique_ptr<Window> w = make_unique<Window>( Essential::screen_width(), Essential::screen_height() );
+  unique_ptr<GameLoop> game_loop = make_unique<GameLoop>(w.get());
+  game_loop->start();
 
 
 }

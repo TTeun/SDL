@@ -16,6 +16,10 @@ Player::Player(SDL_Renderer* screen_renderer)
   des_rect->h = 64;
 }
 
+Player::~Player(){
+  cout << "Player desctructor\n";
+}
+
 void Player::render_player(){
   if (m_dir == DIRECTION::STAT){
     src_rect->x = 0;

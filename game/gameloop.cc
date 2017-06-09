@@ -6,15 +6,25 @@ using namespace std;
 GameLoop::GameLoop( Window *_w )
   : w(_w)
 {
-  Level *level = new Level( w->screen_renderer() );
-  Player *player = new Player( w->screen_renderer() );
-  Collision *col = new Collision(level, player);
-  Essential::set_collision(col);
+  level = make_unique<Level>( w->screen_renderer() );
+  player = make_unique<Player>( w->screen_renderer() );
+  col = make_unique<Collision>(level.get(), player.get());
+  rain = make_unique<Rain>( w->screen_renderer() );
+
+  Essential::set_collision(col.get());
   Essential::set_level_height(32 * level->level_height());
   Essential::set_level_width(32 * level->level_width());
 
-  Rain *rain = new Rain( w->screen_renderer() );
+}
 
+GameLoop::~GameLoop(){
+  rain = nullptr;
+  col = nullptr;
+  player = nullptr;
+  level = nullptr;
+}
+
+void GameLoop::start(){
   int ticks_per_frame = 1000 / Essential::fps();
   int last_tick;
 
@@ -63,6 +73,4 @@ GameLoop::GameLoop( Window *_w )
         ;
     }
 
-  delete w;
-  delete rain;
 }
