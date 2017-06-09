@@ -27,7 +27,7 @@ private:
     GROUNDED,
     FALLING
   };
-  STATE m_state = STATE::FALLING;
+  STATE m_state = STATE::GROUNDED;
 };
 
 inline int RigidBody::vx(){

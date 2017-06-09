@@ -27,8 +27,8 @@ GameLoop::~GameLoop(){
 }
 
 void GameLoop::start(){
-  int ticks_per_frame = 1000 / Essential::fps();
-  int last_tick;
+  unsigned int ticks_per_frame = 1000 / Essential::fps();
+  unsigned int last_tick;
 
   int width, height;
   bool running = true;
