@@ -12,8 +12,8 @@ RigidBody::RigidBody(int x, int y, int w, int h, int weight, int vx, int vy)
   m_vy = vy;
 }
 
-void RigidBody::update(){
-
+void RigidBody::update()
+{
   if (m_state == STATE::FALLING)
   {
     int yy = m_y;

@@ -8,7 +8,7 @@ Window::Window(size_t width, size_t height)
   cout << "Window constructor\n";
   init_window();
   m_screen_renderer = SDL_CreateRenderer( m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-  SDL_SetRenderDrawColor( m_screen_renderer, 0x70, 0xb0, 0xe0, 0x00 );
+  SDL_SetRenderDrawColor( m_screen_renderer, 0x000, 0xb0, 0xe0, 0x00 );
 }
 
 Window::~Window(){

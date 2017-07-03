@@ -1,0 +1,3 @@
+Setup constants in config files
+Fix collision detection for player
+Fix level loading (is now mirrored)
