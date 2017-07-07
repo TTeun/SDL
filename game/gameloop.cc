@@ -15,7 +15,6 @@ GameLoop::GameLoop( Window *_w )
   Essential::set_collision(col.get());
   Essential::set_level_height(32 * level->level_height());
   Essential::set_level_width(32 * level->level_width());
-
 }
 
 GameLoop::~GameLoop(){

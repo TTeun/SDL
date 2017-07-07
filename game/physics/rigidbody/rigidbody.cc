@@ -7,6 +7,7 @@ using namespace std;
 RigidBody::RigidBody(int x, int y, int w, int h, int weight, int vx, int vy)
   : Box(Box(x, y, w, h))
 {
+  m_state = STATE::FALLING;
   m_weight = weight;
   m_vx = vx;
   m_vy = vy;
@@ -15,34 +16,29 @@ RigidBody::RigidBody(int x, int y, int w, int h, int weight, int vx, int vy)
 void RigidBody::update()
 {
   if (m_state == STATE::FALLING)
-  {
-    int yy = m_y;
-    if (Essential::collision()->level_collide_from_top(m_x, yy, m_w, m_h, m_vy / Essential::fps()))
-    {
-      m_state = STATE::GROUNDED;
-      has_jumped = false;
-      has_jumped_twice = false;
+    cout << "Falling\n";
+  else
+    cout << "Grounded\n";
+
+  if (m_state == STATE::FALLING){
+    if (Essential::collision()->level_collide_vert(static_cast<Box *>(this), m_vy)){
       m_vy = 0;
-      m_y = yy;
+      m_state = STATE::GROUNDED;
     }
-    else
-    {
+    else {
       m_y += m_vy / Essential::fps();
       m_vy -= g * m_weight / Essential::fps();
+
       if (m_vy < (-31 * Essential::fps()))
-        m_vy = -31 / Essential::fps();
+        m_vy = -31 * Essential::fps();
     }
   }
-  if ( Essential::collision()->no_ground_underneath(m_x, m_y, m_w, m_h) )
-    m_state = STATE::FALLING;
 
-
-  if (not Essential::collision()->level_collide(m_x + m_vx / Essential::fps(), m_y, m_w, m_h) )
-    m_x += m_vx / Essential::fps();
-  else
-    m_vx = 0;
-
+  m_x += m_vx / Essential::fps();
   m_vx *= 0.7; // Something log
+
+  if (m_state == STATE::GROUNDED && Essential::collision()->no_ground_underneath(m_x, m_y, m_w, m_h) )
+    m_state = STATE::FALLING;
 }
 
 void RigidBody::force_up(int f){

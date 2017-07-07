@@ -96,5 +96,12 @@ bool Level::does_hit(int x, int y){
     return false;
 
   return m_level_desc[x + m_level_width * y] != 0;
+}
+
+bool Level::does_hit(Box *box){
+  return (does_hit(box->m_x, box->m_y) || does_hit(box->m_x + 32, box->m_y) || does_hit(box->m_x + 64, box->m_y));
+
+
+
 
 }

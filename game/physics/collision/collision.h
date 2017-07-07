@@ -15,7 +15,8 @@ public:
   bool no_ground_underneath(int x, int y);
   bool no_ground_underneath(int x, int y, int w, int h);
 
-  bool level_collide_from_top(int x, int &y, int w, int h, int vy);
+  bool level_collide_vert(Box *box, int vy);
+  bool level_collide_from_side(int x, int y, int w, int h, int vx);
 
 private:
   Level *m_level;
@@ -27,7 +28,7 @@ bool inline Collision::level_collide(int x, int y){
 }
 
 bool inline Collision::level_collide(int x, int y, int w, int h){
-  return (m_level->does_hit(x, y) || m_level->does_hit(x, y + h) || m_level->does_hit(x + w, y) || m_level->does_hit(x + w, y + h));
+  return (m_level->does_hit(x, y) || m_level->does_hit(x, y + h) || m_level->does_hit(x + w - 1, y) || m_level->does_hit(x + w - 1, y + h));
 }
 
 bool inline Collision::no_ground_underneath(int x, int y){

@@ -4,6 +4,7 @@
 #include "../../sprite/sprite.h"
 #include <vector>
 #include <tuple>
+#include "../../../physics/rigidbody/box.h"
 
 class Level {
 public:
@@ -13,6 +14,7 @@ public:
 
   void render_level();
   bool does_hit(int x, int y);
+  bool does_hit(Box *box);
   size_t level_height();
   size_t level_width();
 
