@@ -23,6 +23,7 @@ public:
   int y();
   void force_up(float f);
   void force_right(float f);
+  void jump_released();
 
 private:
   void set_dir();
@@ -54,6 +55,10 @@ inline void Player::force_up(float f) {
 
 inline void Player::force_right(float f) {
   m_rigidbody->force_right(f);
+}
+
+inline void Player::jump_released() {
+  m_rigidbody->jump_released();
 }
 
 #endif

@@ -48,12 +48,16 @@ void GameLoop::start(){
           }
       }
 
-      if (state[SDL_SCANCODE_RIGHT])
+      if (state[SDL_SCANCODE_RIGHT] || state[SDL_SCANCODE_D])
         player->force_right(5);
-      if (state[SDL_SCANCODE_LEFT])
+
+      if (state[SDL_SCANCODE_LEFT] || state[SDL_SCANCODE_A])
         player->force_right(-5);
-      if (state[SDL_SCANCODE_UP])
+
+      if (state[SDL_SCANCODE_UP]  || state[SDL_SCANCODE_W])
         player->force_up(8);
+      else
+        player->jump_released();
 
 
       w->clear();

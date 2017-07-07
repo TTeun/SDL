@@ -33,7 +33,7 @@ Level::Level(SDL_Renderer *screen_renderer)
 void Level::read_level(){
   cout << "Reading level\n";
   ifstream level_file;
-  level_file.open("game/window/environment/level/levels/level2");
+  level_file.open("game/window/environment/level/levels/level3");
 
   string line;
   if (level_file.is_open())

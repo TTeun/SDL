@@ -16,14 +16,17 @@ RigidBody::RigidBody(int x, int y, int w, int h, int weight, int vx, int vy)
 void RigidBody::update()
 {
   if (m_state == STATE::FALLING)
-    cout << "Falling\n";
+    cout << "Falling, \t";
   else
-    cout << "Grounded\n";
+    cout << "Grounded, \t";
+
+  cout << has_jumped_twice << '\n';
 
   if (m_state == STATE::FALLING){
     if (Essential::collision()->level_collide_vert(static_cast<Box *>(this), m_vy)){
       m_vy = 0;
       m_state = STATE::GROUNDED;
+      has_jumped_twice = false;
     }
     else {
       m_y += m_vy / Essential::fps();
@@ -44,17 +47,19 @@ void RigidBody::update()
 void RigidBody::force_up(int f){
   // Moet nog een button release ding op
 
-  if (m_state == STATE::FALLING && ((not can_double_jump) || has_jumped_twice))
-    return;
-
-  if (has_jumped)
+  if ((not has_jumped_twice) && m_jump_released && (m_state == STATE::FALLING) && (jump_timer + double_jump_delay < SDL_GetTicks())){
+    m_vy = 2 * f * m_weight;
     has_jumped_twice = true;
-  else
-    has_jumped = true;
+  }
 
-  m_state = STATE::FALLING;
-  // m_y += 5;
-  m_vy = 2 * f * m_weight;
+  if (m_state == STATE::GROUNDED){
+    m_jump_released = false;
+    m_vy = 2 * f * m_weight;
+    has_jumped_twice = false;
+    m_state = STATE::FALLING;
+    jump_timer = SDL_GetTicks();
+  }
+
 }
 
 void RigidBody::force_right(int f){
